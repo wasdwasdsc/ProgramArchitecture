@@ -83,7 +83,7 @@ def add_record(car, petrol, distance):
     date = datetime.datetime.today()
     if car in charge_of_gasoline.keys():
         if petrol in petrol_price.keys():
-            new_record = {date: {car: petrol_price.get(petrol)*distance}}
+            new_record = {date: {car: petrol_price.get(petrol) * distance}}
             expense_accounting.update(new_record)
             return new_record
         return False
@@ -120,9 +120,15 @@ def get_expense_by_date_and_car(date, car):
 
 
 def show_petrol():
-    """Shows all petrol and their price."""
+    """Shows all petrol and their price.
 
-    print("Petrol - %s" % petrol_price.items())
+    >>> show_petrol()
+    Petrol - [('Ai92', 19.5), ('Ai95', 20.8), ('Ai98', 22.3)]
+    """
+
+    mass = [item for item in petrol_price.items()]
+    mass.sort(key=lambda x: x[0])
+    print("Petrol - %s" % mass)
 
 
 def show_car():
@@ -132,12 +138,6 @@ def show_car():
 
 
 if __name__ == '__main__':
-    add_record("car2", "Ai92", 100)
-    time.sleep(0.1)
-    add_record("car1", "Ai92", 200)
-    time.sleep(0.1)
-    add_record("car1", "Ai92", 300)
-    time.sleep(0.1)
-    add_record("car1", "Ai92", 400)
-    print(get_expense_by_date(datetime.date(2016, 3, 17)))
-    print(get_expense_by_date_and_car(datetime.date(2016, 3, 17), "car2"))
+    import doctest
+
+    doctest.testmod()
