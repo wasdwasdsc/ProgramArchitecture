@@ -6,6 +6,7 @@ import time
 
 def add_petrol(name, price):
     """Function to add new petrol.
+
     :param name: petrol name.
     :param price: petrol price.
     :returns: updates dictionary of petrols."""
@@ -14,6 +15,7 @@ def add_petrol(name, price):
 
 def get_price_of_petrol(name):
     """Function to get price of existing petrol.
+
     :param name: petrol name.
     :returns: price by name."""
     return petrol_price.get(name)
@@ -21,6 +23,7 @@ def get_price_of_petrol(name):
 
 def del_petrol(name):
     """Function to delete existing petrol.
+
     :param name: petrol name.
     :returns: deletes petrol from dictionary."""
     return petrol_price.pop(name)
@@ -28,6 +31,7 @@ def del_petrol(name):
 
 def change_petrol(name, new_price):
     """Function to change existing petrol.
+
     :param name: petrol name.
     :param new_price: new price of a petrol.
     :returns: changes petrol price."""
@@ -36,6 +40,7 @@ def change_petrol(name, new_price):
 
 def get_charge_of_car(name):
     """Function to get charge of car.
+
     :param name: car name.
     :returns: charge of named car."""
     return charge_of_gasoline.get(name)
@@ -43,6 +48,7 @@ def get_charge_of_car(name):
 
 def add_car(name, charge):
     """Function to add new car.
+
     :param name: car name.
     :param charge: car charge.
     :returns: updates dictionary of cars."""
@@ -51,6 +57,7 @@ def add_car(name, charge):
 
 def del_car(name):
     """Function to delete existing car.
+
     :param name: car name.
     :returns: deletes car from dictionary."""
     return charge_of_gasoline.pop(name)
@@ -58,6 +65,7 @@ def del_car(name):
 
 def change_car(name, new_charge):
     """Function to change existing car.
+
     :param name: car name.
     :param new_charge: new charge of a car.
     :returns: modifies car dictionary."""
@@ -66,6 +74,7 @@ def change_car(name, new_charge):
 
 def add_record(car, petrol, distance):
     """Function to add new record.
+
     :param car: car name.
     :param petrol: petrol name.
     :param distance: distance made by a car.
@@ -82,6 +91,7 @@ def add_record(car, petrol, distance):
 
 def get_expense_by_date(date):
     """Function to get expenses by date.
+
     :param date: date to look for.
     :returns: money spent at this day."""
     print(date)
@@ -95,6 +105,7 @@ def get_expense_by_date(date):
 
 def get_expense_by_date_and_car(date, car):
     """Function to get expenses of car by date.
+
     :param date: date to look for.
     :param car: car name to look for.
     :returns: money spent at this day by this car."""
@@ -108,11 +119,13 @@ def get_expense_by_date_and_car(date, car):
 
 def show_petrol():
     """Shows all petrol and their price."""
+
     print("Petrol - %s" % petrol_price.items())
 
 
 def show_car():
     """Shows all cars and their charges."""
+
     print("Cars - %s" % charge_of_gasoline.items())
 
 

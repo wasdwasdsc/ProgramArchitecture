@@ -1,14 +1,18 @@
 """Menu for user interaction with program"""
+
+from ProgramArchitecture.controller.data_control import show_petrol, show_car
 from controller.data_control import *
 
 
 def run():
     """This function calls for main menu"""
+
     main_menu()
 
 
 def main_menu():
     """Main menu"""
+
     while True:
         print("""
         1. Petrol.
@@ -31,6 +35,7 @@ def main_menu():
 
 def petrol_menu():
     """2nd level menu for petrol."""
+
     while True:
         print("""
         1. Add petrol.
@@ -65,6 +70,7 @@ def petrol_menu():
 
 def car_menu():
     """2nd level menu for cars."""
+
     while True:
         print("""
         1. Add car.
@@ -99,6 +105,7 @@ def car_menu():
 
 def account_menu():
     """2nd level menu for accounting."""
+
     while True:
         print("""
         1. Add record.
