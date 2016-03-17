@@ -1,7 +1,11 @@
 """Menu for user interaction with program"""
 
-from ProgramArchitecture.controller.data_control import show_petrol, show_car
-from controller.data_control import *
+from controller.data_control import get_expense_by_date_and_car,\
+    add_car, add_petrol, add_record, change_car, \
+    change_petrol, del_car, del_petrol, get_charge_of_car, \
+    get_expense_by_date, get_price_of_petrol, show_car, \
+    show_petrol
+import datetime
 
 
 def run():
@@ -133,7 +137,8 @@ def account_menu():
             day = int(input("Enter day."))
             c_name = input("Enter car name.")
             if year < 2017 and 0 < month < 13 and 0 < day < 31:
-                print(get_expense_by_date_and_car(datetime.date(year, month, day), c_name))
+                print(get_expense_by_date_and_car(datetime.date(year, month,
+                                                                day), c_name))
             else:
                 print("You have entered wrong date.\n")
         elif option == '4':

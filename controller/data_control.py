@@ -1,4 +1,5 @@
 """ This is module for data control."""
+
 from model.models import petrol_price, charge_of_gasoline, expense_accounting
 import datetime
 import time
@@ -112,7 +113,8 @@ def get_expense_by_date_and_car(date, car):
     res = 0
     format = "%a %b %d %H:%M:%S %Y"
     for date_, car_ in expense_accounting.items():
-        if date.strftime(format) == date_.date().strftime(format) and car == [i for i, j in car_.items()][0]:
+        if date.strftime(format) == date_.date().strftime(format) \
+                and car == [i for i, j in car_.items()][0]:
             res += [j for i, j in car_.items()][0]
     return res
 
