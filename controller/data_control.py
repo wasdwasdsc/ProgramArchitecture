@@ -123,7 +123,7 @@ def add_record(car, petrol, distance):
     date = datetime.datetime.today()
     if car in charge_of_gasoline.keys():
         if petrol in petrol_price.keys():
-            new_record = {date: {car: petrol_price.get(petrol) * distance}}
+            new_record = {date: {car: petrol_price.get(petrol) * distance * charge_of_gasoline[car]}}
             expense_accounting.update(new_record)
             return True
         return False
@@ -139,14 +139,19 @@ def get_expense_by_date(date):
     >>> add_record('car3', 'Ai92', 348)
     True
     >>> get_expense_by_date(datetime.datetime.today())
-    0
+    13572.0
     """
     #print(date)
     res = 0
-    format = "%a %b %d %H:%M:%S %Y"
+    """format = "%a %b %d %H:%M:%S %Y"
     for date_, car in expense_accounting.items():
         if date.strftime(format) == date_.date().strftime(format):
-            res += [j for i, j in car.items()][0]
+            res += [j for i, j in car.items()][0]"""
+
+    for i in expense_accounting.items():
+        if i[0].month == date.month and i[0].year == date.year and i[0].day == date.day:
+            for j in i[1].items():
+                res += j[1]
     return res
 
 
@@ -160,14 +165,20 @@ def get_expense_by_date_and_car(date, car):
     >>> add_record('car2', 'Ai98', 154)
     True
     >>> get_expense_by_date_and_car(datetime.datetime.today(), 'car2')
-    0
+    77.0
     """
     res = 0
-    format = "%a %b %d %H:%M:%S %Y"
-    for date_, car_ in expense_accounting.items():
-        if date.strftime(format) == date_.date().strftime(format) \
-                and car == [i for i, j in car_.items()][0]:
-            res += [j for i, j in car_.items()][0]
+    # format = "%a %b %d %H:%M:%S %Y"
+    # for date_, car_ in expense_accounting.items():
+    #     if date.strftime(format) == date_.date().strftime(format) \
+    #             and car == [i for i, j in car_.items()][0]:
+    #         res += [j for i, j in car_.items()][0]
+
+    for i in expense_accounting.items():
+        if i[0].month == date.month and i[0].year == date.year and i[0].day == date.day:
+            res += i[1].get(car, 0)
+    return res
+
     return res
 
 
