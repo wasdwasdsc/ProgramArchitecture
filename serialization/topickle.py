@@ -1,23 +1,37 @@
-from pickle import dump, load
+"""module that serialize
+user.Accounting in Pickle and deserialize
+user.User from file"""
+
+import pickle
+from model.Accounting import Accounting
 
 
-def read(filename):
+def write(obj, fname='data/info.pickle'):
     """
-    read from pickle file
-    :param filename: file name
-    :return: deserialized object
-    """
-    with open(filename, 'rb') as f:
-        data = load(f)
-        return data
-
-
-def write(filename, data):
-    """
-    write into pickle file
-    :param filename: file name
-    :param data: object to serialize
+    serialize user object in Pickle
+    :param obj: class User to serialize
+    :param fname: file name
     :return: nothing
     """
-    with open(filename, 'wb') as f:
-        dump(data, filename)
+    if not isinstance(obj, Accounting):
+        # obj is not User
+        raise ValueError('Incorrect type of variable obj')
+    with open(fname, 'wb') as file:
+        pickle.dump(obj, file)
+
+
+def read(fname='data/info.pickle'):
+    """
+    read from Pickle file object
+    :param fname: file name
+    :return: new User object or None
+    """
+    try:
+        with open(fname, 'rb') as file:
+            # try load
+            # and return user
+            return pickle.load(file)
+    except (OSError, ValueError):
+        # file not found or incorrect value,
+        # return None
+        return None

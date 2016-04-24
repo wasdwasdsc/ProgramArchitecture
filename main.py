@@ -1,5 +1,5 @@
 """Main file to run program"""
 
-from controller.data_control import run
+from controller.data_control import Controller
 
-run()
+Controller().run()
