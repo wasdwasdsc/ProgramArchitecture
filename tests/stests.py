@@ -19,6 +19,7 @@ class TestSerialization(unittest.TestCase):
         """
         acc = Accounting()
         acc.petrol_price.add("Ai92", 22)
+        acc.add("test", "test", 200)
         acc.charge_of_gasoline.add_car("zaz01", 10)
         acc.add("zaz01", "Ai92", 100)
         return acc

@@ -4,8 +4,8 @@ user.User from file"""
 
 import json
 from model.Accounting import Accounting
-from model.Charge import Charge
-from model.Petrol import Petrol
+from model.charge import Charge
+from model.petrol import Petrol
 
 
 class AccountingEncoder(json.JSONEncoder):

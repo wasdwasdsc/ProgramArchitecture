@@ -1,8 +1,8 @@
 """Data to work with"""
 
 import datetime
-from model.Charge import Charge
-from model.Petrol import Petrol
+from model.charge import Charge
+from model.petrol import Petrol
 
 
 class Accounting:
@@ -20,10 +20,10 @@ class Accounting:
         :returns: False if car or petrol is not existing or new record.
 
         """
-        date = datetime.datetime.today()
+        date = datetime.datetime.today().date()
         if car not in self.charge_of_gasoline.gasoline or petrol not in self.petrol_price.price:
             return False
-        new_record = {date.strftime("%a, %d %b %Y %H:%M:%S +0000"): {car: self.petrol_price.get_price(petrol) * distance * self.charge_of_gasoline.gasoline[car]}}
+        new_record = {str(date): {car: self.petrol_price.get_price(petrol) * distance * self.charge_of_gasoline.gasoline[car]}}
         self.expense.update(new_record)
         return True
 
@@ -55,5 +55,4 @@ class Accounting:
 
 if __name__ == '__main__':
     import doctest
-
     doctest.testmod()
