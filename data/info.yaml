@@ -1,0 +1,6 @@
+!!python/object:model.Accounting.Accounting
+charge_of_gasoline: !!python/object:model.Charge.Charge
+  gasoline: {car1: 6.5, car2: 9, car3: 17}
+expense: {}
+petrol_price: !!python/object:model.Petrol.Petrol
+  price: {Ai92: 19.5, Ai95: 20.8, Ai98: 22.3, ai91: 21.0}

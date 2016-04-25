@@ -1,78 +1,112 @@
-from model.models import petrol_price, charge_of_gasoline, expense_accounting
+"""Menu for user interaction with program"""
+
+from model.Accounting import Accounting
 import datetime
-import time
+from controller.cfgparser import cfgparse
+from view.interface import Interface
 
 
-def add_petrol(name, price):
-    petrol_price.update({name: price})
-    return
+class Controller:
+    def __init__(self):
+        self.read = cfgparse()[0]
+        self.write = cfgparse()[1]
+        main_accounting = self.read()
+        if main_accounting is None:
+            main_accounting = Accounting()
+        self.accounting = main_accounting
+        self.interface = Interface()
 
+    def run(self):
+        """This function calls for main menu"""
 
-def get_price_of_petrol(name):
-    return petrol_price.get(name)
+        self.main_menu()
 
+    def main_menu(self):
+        """Main menu"""
 
-def del_petrol(name):
-    return petrol_price.pop(name)
+        while True:
+            self.interface.print_main_menu()
+            option = self.interface.input_my("What would you like to do? ")
+            if option == '1':
+                self.petrol_menu()
+            elif option == '2':
+                self.car_menu()
+            elif option == '3':
+                self.account_menu()
+            elif option == '4':
+                self.write(self.accounting)
+                raise SystemExit
+            elif option != "":
+                self.interface.print_error('wrong input_my')
 
+    def petrol_menu(self):
+        """2nd level menu for petrol."""
 
-def change_petrol(name, new_price):
-    return petrol_price.update({name: new_price})
+        while True:
+            self.interface.print_petrol_menu()
+            option = self.interface.input_my("What would you like to do? ")
+            if option == '1':
+                p_name = self.interface.input_my("Enter petrol name.")
+                p_price = float(self.interface.input_my("Enter petrol price."))
+                self.accounting.petrol_price.add(p_name, p_price)
+            elif option == '2':
+                p_name = self.interface.input_my("Enter petrol name to delete.")
+                self.accounting.petrol_price.delete(p_name)
+            elif option == '3':
+                p_name = self.interface.input_my("Enter petrol name to change.")
+                p_price = float(self.interface.input_my("Enter new petrol price."))
+                self.accounting.petrol_price.change(p_name, p_price)
+            elif option == '4':
+                p_name = self.interface.input_my("Enter petrol name to check price.")
+                self.accounting.petrol_price.get_price(p_name)
+            elif option == '5':
+                self.accounting.show_petrol()
+            elif option == '6':
+                return
+            elif option != "":
+                self.interface.print_error('wrong input_my')
 
+    def car_menu(self):
+        """2nd level menu for cars."""
 
-def get_charge_of_car(name):
-    return charge_of_gasoline.get(name)
+        while True:
+            self.interface.print_car_menu()
+            option = self.interface.input_my("What would you like to do? ")
+            if option == '1':
+                c_name = self.interface.input_my("Enter car name.")
+                c_charge = float(self.interface.input_my("Enter car charge."))
+                self.accounting.charge_of_gasoline.add_car(c_name, c_charge)
+            elif option == '2':
+                c_name = self.interface.input_my("Enter car name to delete.")
+                self.accounting.charge_of_gasoline.del_car(c_name)
+            elif option == '3':
+                c_name = self.interface.input_my("Enter car name to change.")
+                c_charge = float(self.interface.input_my("Enter new car charge."))
+                self.accounting.charge_of_gasoline.change_car(c_name, c_charge)
+            elif option == '4':
+                c_name = self.interface.input_my("Enter car name to check charge.")
+                self.accounting.charge_of_gasoline.get_charge_of_car(c_name)
+            elif option == '5':
+                self.accounting.show_car()
+            elif option == '6':
+                return
+            elif option != "":
+                self.interface.print_error('wrong input_my')
 
+    def account_menu(self):
+        """2nd level menu for accounting."""
 
-def add_car(name, charge):
-    return charge_of_gasoline.update({name: charge})
-
-
-def del_car(name):
-    return charge_of_gasoline.pop(name)
-
-
-def change_car(name, new_charge):
-    return charge_of_gasoline.update({name: new_charge})
-
-
-def add_record(car, petrol, distance):
-    date = datetime.datetime.today()
-    if car in charge_of_gasoline.keys():
-        if petrol in petrol_price.keys():
-            new_record = {date: {car: petrol_price.get(petrol)*distance}}
-            expense_accounting.update(new_record)
-            return new_record
-        return False
-    return False
-
-
-def get_expense_by_date(date):
-    print(date)
-    res = 0
-    format = "%a %b %d %H:%M:%S %Y"
-    for date_, car in expense_accounting.items():
-        if date.strftime(format) == date_.date().strftime(format):
-            res += [j for i, j in car.items()][0]
-    return res
-
-
-def get_expense_by_date_and_car(date, car):
-    res = 0
-    format = "%a %b %d %H:%M:%S %Y"
-    for date_, car_ in expense_accounting.items():
-        if date.strftime(format) == date_.date().strftime(format) and car == [i for i, j in car_.items()][0]:
-            res += [j for i, j in car_.items()][0]
-    return res
-
-
-if __name__ == '__main__':
-    add_record("car2", "Ai92", 100)
-    time.sleep(0.1)
-    add_record("car1", "Ai92", 200)
-    time.sleep(0.1)
-    add_record("car1", "Ai92", 300)
-    time.sleep(0.1)
-    add_record("car1", "Ai92", 400)
-    print(get_expense_by_date(datetime.date(2016, 3, 17)))
-    print(get_expense_by_date_and_car(datetime.date(2016, 3, 17), "car2"))
+        while True:
+            self.interface.print_account_menu()
+            option = self.interface.input_my("What would you like to do? ")
+            if option == '1':
+                c_name = self.interface.input_my("Enter car name.")
+                p_name = self.interface.input_my("Enter petrol name.")
+                dist = float(self.interface.input_my("Enter distance."))
+                self.accounting.add(c_name, p_name, dist)
+            elif option == '2':
+                self.accounting.show_expense()
+            elif option == '3':
+                return
+            elif option != "":
+                self.interface.print_error('wrong input_my')

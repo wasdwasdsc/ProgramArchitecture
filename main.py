@@ -1,5 +1,5 @@
-from view.interface import run
+"""Main file to run program"""
 
-run()
+from controller.data_control import Controller
 
-
+Controller().run()

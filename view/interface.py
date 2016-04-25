@@ -1,5 +1,54 @@
-from controller.data_control import add_car, add_petrol, add_record, change_car, change_petrol, del_car, del_petrol, get_charge_of_car, get_expense_by_date, get_expense_by_date_and_car, get_price_of_petrol
+class Interface:
+    def __init__(self):
+        pass
 
+    @staticmethod
+    def print_main_menu():
+        print("""
+            1. Petrol.
+            2. Car.
+            3. Accounting.
+            4. Quit
+            """)
 
-def run():
-    pass
+    @staticmethod
+    def print_petrol_menu():
+            print("""
+            1. Add petrol.
+            2. Delete petrol.
+            3. Change petrol.
+            4. Get price of petrol.
+            5. Show available petrol.
+            6. Go back to main menu.
+            """)
+
+    @staticmethod
+    def print_car_menu():
+            print("""
+            1. Add car.
+            2. Delete car.
+            3. Change car.
+            4. Get charge of car.
+            5. Show available cars.
+            6. Go back to main menu.
+            """)
+
+    @staticmethod
+    def print_account_menu():
+        print("""
+            1. Add record.
+            2. Show expense records.
+            3. Go back to main menu.
+            """)
+
+    @staticmethod
+    def print_error(err):
+        print("Error: %s" % err)
+
+    @staticmethod
+    def print_data(str):
+        print(str)
+
+    @staticmethod
+    def input_my(str):
+        return input(str)
